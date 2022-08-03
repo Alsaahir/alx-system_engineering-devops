@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Bash script that displays ls Where only the part of the name after the first dash is displayed
+# Display contents of current directory in list format with the part
+#+ of the name through the first dash removed.
 
-for i in *
-do 
-	echo "$i" | cut -d '-' -f 2
+for f in *
+do
+    echo "$f" | cut -d'-' -f2
 done
