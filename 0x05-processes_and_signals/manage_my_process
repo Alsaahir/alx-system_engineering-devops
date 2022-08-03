@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# indefinitely write message in a file
+# Indefinitely writes "I am alive!" every 2s to /tmp/my_process
 
-while :
+while true
 do
-	echo "I am alive!" >> /tmp/my_process
-	sleep 2
+    echo "I am alive!" >> /tmp/my_process
+    sleep 2
 done

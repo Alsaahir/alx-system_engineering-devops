@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-# print bash pid.
+# Display list of currently running processes with process hierarchy
 # shellcheck disable=SC2009
-ps auxf | grep bash
+
+ps -eo user,pid,%cpu,%mem,vsz,rss,tname,stat,start_time,bsdtime,args --forest |\
+grep bash

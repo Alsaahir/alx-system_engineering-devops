@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# print To infinity and beyond indefinitely with delay 2 and handle different signal and save my pid in a file
-sudo bash -c "echo $$ > /var/run/holbertonscript.pid"
-trap 'echo "Y U no love me?!"' SIGINT
-trap "sudo rm -f /var/run/holbertonscript.pid; exit" SIGQUIT
-trap "sudo rm -f /var/run/holbertonscript.pid; echo I hate the kill command; exit" SIGTERM
+# Create temporary file with PID of this script and handle SIGTERM and
+# SIGINT. If received SIGTERM or SIGQUIT delete temporary file.
 
-while :
+echo "$$" > /var/run/holbertonscript.pid
+trap 'echo I hate the kill command; rm /var/run/holbertonscript.pid; kill -9 $$' SIGTERM SIGQUIT
+trap 'echo "Y U no love me?!"' SIGINT
+while true
 do
 	echo "To infinity and beyond"
 	sleep 2
-
 done

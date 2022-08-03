@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
-#
-if [ "$1" = "start" ]
-then
+# Script to manage the `manage_my_process` script as a daemon
+
+case "$1" in
+    start)
 	./manage_my_process &
-	sudo bash -c "echo $$ > /var/run/my_process.pid"
+	echo "$!" > /var/run/my_process.pid
 	echo "manage_my_process started"
-elif [ "$1" = "stop" ]
-then
-	pkill -f ./manage_my_process
-	sudo rm -f /var/run/my_process.pid
+	;;
+    stop)
+	kill "$(cat /var/run/my_process.pid)"
+	rm '/var/run/my_process.pid'
 	echo "manage_my_process stopped"
-elif [ "$1" = "restart" ]
-then
-	pkill -f ./manage_my_process
-	sudo rm -f /var/run/my_process.pid
+	;;
+    restart)
+	kill "$(cat /var/run/my_process.pid)"
+	rm '/var/run/my_process.pid'
 	./manage_my_process &
-	sudo bash -c "echo $$ > /var/run/my_process.pid"
+	echo "$!" > /var/run/my_process.pid
 	echo "manage_my_process restarted"
-else
-	echo "Usage: manage_my_process {start|stop|restart}"
-fi
+	;;
+    *)
+	echo 'Usage: manage_my_process {start|stop|restart}'
+	;;
+esac
